@@ -8,7 +8,7 @@ model = PPO.load("model/models/hospital_model")
 obs = env.reset()
 
 for i in range(10):
-    action, _ = model.predict(obs)
+    action, _ = model.predict(obs,deterministic=True)
 
     obs, reward, done, _ = env.step(action)
 

@@ -15,14 +15,14 @@ beds = st.slider("Available Beds", 0, 100, 50)
 icu = st.slider("Available ICU Units", 0, 20, 10)
 patients = st.slider("Incoming Patients", 1, 20, 5)
 
-severity = st.selectbox("Patient Severity", ["Low", "Medium", "Critical"])
+severity = st.selectbox("Patient Severity", ["Low", "Medium", "High"])
 
-severity_map = {"Low": 0, "Medium": 1, "Critical": 2}
+severity_map = {"Low": 0, "Medium": 1, "High": 2}
 
 state = np.array([beds, icu, patients, severity_map[severity]])
 
 if st.button("Get AI Decision"):
-    action, _ = model.predict(state)
+    action, _ = model.predict(state,deterministic=True)
 
     if action == 0:
         st.success("🛏️ Assign to Bed")
